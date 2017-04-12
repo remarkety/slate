@@ -1,17 +1,15 @@
 ---
-title: API Reference
+title: Remarkety Event Reference
 
 language_tabs:
-  - shell
-  - ruby
-  - python
-  - javascript
+  - php
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
+  - built-in-events
   - errors
 
 search: true
@@ -19,171 +17,88 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+With Remarkety, you can trigger automations based on various **events** which occur in your system.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+## What are events?
 
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+**Events** simply describe something that happened on your website or business. Events always have a **type**, a **time** and a **subject**.
+ 
+Some examples of events are:
 
-# Authentication
+ * A *customer* made an *order* on your website on *July 4, 2017, 10:00am*.
+ * A *visitor* visited a *page* on your website on *February 26, 2016, 8:53pm*.
+ * A *product* was restocked to a level of *100* units on  *June 5, 2016, 9:41am*.
+ * An *order* was *shipped* to a customer on *Oct 12, 2015, 9:34am*
+ * A *subscriber* signed up for a *newsletter* on...
+ * A *recipient* clicked on a link in a *campaign* on...
 
-> To authorize, use this code:
+You get the picture ;)
 
-```ruby
-require 'kittn'
+## How are events used in Remarkety?
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+Events are used within Remarkety to:
+
+* Trigger automations, either immediately or with a delay
+* Segment customers based on actions that they've done (or haven't done)
+
+# Sending Events
+
+## Event Format
+All events must have a *type*. Remarkety has some built-in event types for e-commerce which you should use
+ if you are sending e-commerce related events. In addition, you can send us any other type of event, but we will not
+ be able to perform advanced e-commerce related analytics on them. The built-in event types are specified in the 
+ [Built-In Events](#built-in-events) section.
+ 
+## Making the Request
+```php
+<?php
+
+$storeId = "AAABBB";            // Unique per remarkety account
+$apiKey = "SuperSecretApiKey";  // Get this from Remarkety 
+$eventType = "customers/update"; // See "Event types"
+$domain = "kingslanding.com";   // Your store's domain
+$platform = "MAGENTO";          // Per-platform setting
+
+$headers = [
+    "x-domain: $domain",
+    "x-platform: $platform",
+    "x-token: $apiKey",
+    "x-event-type: $eventType",
+    'Content-Type: application/json; charset=UTF-8'
+];
+
+$customerData = [
+    'created_at' => '2017-04-04T15:12:21-05:00',
+    'email' => 'john.snow@thewall.org',
+    'first_name' => 'John',
+    'last_name' => 'Snow',
+    'updated_at' => '2017-04-04T15:12:21-05:00',
+    'accepts_marketing' => true
+];
+
+$dataString = json_encode($customerData);
+
+$ch = curl_init("https://webhooks.remarkety.com/webhooks/?storeId=$storeId");
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+$result = curl_exec($ch);
 ```
 
-```python
-import kittn
+The request must be a `POST` request to our endpoint.
+The request needs to include the following headers:
 
-api = kittn.authorize('meowmeowmeow')
-```
+Header | Value | Example
+--------- | ------- | ---------
+Content-Type | application/json; charset=UTF-8 |
+x-event-type | The event type | customers/update
+x-token | Your API Key | abc123
+x-domain | Your domain (optional) | my.store.com
+x-platform | Your e-commerce platform | MAGENTO1
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
+The `body` of the request is simply the event JSON itself.
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+Your API Key and Store Id can be found on your Integrations page.
 </aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-

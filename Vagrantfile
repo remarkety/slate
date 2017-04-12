@@ -6,7 +6,14 @@ Vagrant.configure(2) do |config|
     type: "shell",
     inline: <<-SHELL
       sudo apt-get update
-      sudo apt-get install -yq ruby2.0 ruby2.0-dev pkg-config build-essential nodejs git libxml2-dev libxslt-dev
+      sudo apt-get install -yq pkg-config build-essential nodejs git libxml2-dev libxslt-dev
+sudo apt-get install libgdbm-dev libncurses5-dev automake libtool bison libffi-dev
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+curl -sSL https://get.rvm.io | bash -s stable
+source ~/.rvm/scripts/rvm
+rvm install 2.4.0
+rvm use 2.4.0 --default
+ruby -v
       sudo apt-get autoremove -yq
       gem2.0 install --no-ri --no-rdoc bundler
     SHELL
