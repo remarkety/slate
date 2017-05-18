@@ -10,6 +10,15 @@
 
 <p align="center"><em>The example above was created with Slate. Check it out at <a href="https://lord.github.io/slate">lord.github.io/slate</a>.</em></p>
 
+Remarkety TL;DR
+---------------
+* Modify the  files inside the `source` directory, most likely the `index.html.md` file.
+* Build and deploy by running the script:
+   ```
+   ./remarketyDeploy.sh
+   ```
+* The docs are publicly available at: http://docs-api-v1.remarkety.com.s3-website-us-east-1.amazonaws.com/#carts-create
+
 Features
 ------------
 
