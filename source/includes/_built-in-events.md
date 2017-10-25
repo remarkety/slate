@@ -157,7 +157,8 @@ customer record based on this id. Otherwise, a new customer might be created wit
   "total_shipping": 20,
   "total_tax": 18,
   "total_weight": 150,
-  "updated_at": "2012-02-15T15:12:21-05:00"
+  "updated_at": "2012-02-15T15:12:21-05:00",
+  "source": "POS"
 }
 ```
 
