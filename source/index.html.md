@@ -85,7 +85,34 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $result = curl_exec($ch);
 ```
+```javascript
+var storeId = "AAABBB";            // Unique per remarkety account
+var eventType = "customers/update"; // See "Event types"
 
+var data = JSON.stringify({
+  "email": "john.snow@thewall.org",
+  "first_name": "John",
+  "last_name": "Snow",
+  "accepts_marketing": true
+});
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://webhooks-staging.remarkety.com/webhooks/store/"+storeId);
+xhr.setRequestHeader("Content-Type", "application/json");
+xhr.setRequestHeader("x-event-type", eventType);
+xhr.setRequestHeader("Cache-Control", "no-cache");
+
+xhr.send(data);
+
+```
 The request must be a `POST` request to our endpoint.
 The request needs to include the following headers:
 
@@ -93,11 +120,12 @@ Header | Value | Example
 --------- | ------- | ---------
 Content-Type | application/json; charset=UTF-8 |
 x-event-type | The event type | customers/update
-x-token | Your API Key | abc123
+x-token | Your API Key (not necessary on client-side events) | abc123
 x-domain | Your domain (optional) | my.store.com
-x-platform | Your e-commerce platform | MAGENTO1
+x-platform | Your e-commerce platform (optional) | MAGENTO1
 
 The `body` of the request is simply the event JSON itself.
 <aside class="notice">
-Your API Key and Store Id can be found on your Integrations page.
+Your API Key and Store Id can be found on your Integrations page. 
+<strong>If integrating client-side, don't expose this variable!</strong>
 </aside>
