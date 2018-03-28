@@ -32,12 +32,15 @@ The event type must be specified in the `x-event-type` header.
   "id": 1234,
   "info": {},
   "last_name": "Harel",
-  "updated_at": "2012-02-15T15:12:21-05:00",
+  "rewards": {
+    "points": 10
+  },
   "tags": [
     "tag1",
     "tag2"
   ],
   "title": "Mr.",
+  "updated_at": "2012-02-15T15:12:21-05:00",
   "verified_email": true
 }
 ```
