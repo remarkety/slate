@@ -4,7 +4,7 @@ bundle exec middleman build --clean
 if [ $? -eq 0 ]; then
     echo "Synching to S3 bucket"
     cd build
-    s3cmd sync -r . s3://docs-api-v1.remarkety.com/
+    s3cmd sync -r --no-mime-magic --guess-mime-type . s3://docs-api-v1.remarkety.com/
     if [ $? -eq 0 ]; then
         echo "Success!"
     else

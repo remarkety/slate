@@ -467,6 +467,25 @@ Be sure to send a `carts/delete` event with the cart ID once a cart turns into a
   "tags": ["politics", "sport"]
 }
 ```
+
+```javascript
+var storeId = "AAABBB";             // Unique per remarkety account - get yours from the API setting page
+var eventType = "newsletter/subscribe"; // See "Event types"
+
+var data = JSON.stringify({
+    "email": "shopper@gmail.com",
+    "first_name": "Edgar",
+    "last_name": "Poe",
+    "tags": ["politics", "sport"]
+});
+
+// If run client-side, use our tracking script:
+var _rmData = _rmData || [];
+_rmData.push(['setStoreKey', storeId]); // Only needs to be run once on the page
+_rmData.push(['track', eventType, data]);
+// End client-side code
+```
+
 Send this event to inform Remarkety of a customer's explicit wish to receive email newsletters.
 When Remarkety received this event, we **will not** send an opt-in confirmation. If you would like Remarkety to handle
 the double opt-in process, send a `customer/create` event instead, with `accepts_marketing: true`.
@@ -477,6 +496,22 @@ the double opt-in process, send a `customer/create` event instead, with `accepts
 "email": "shopper@gmail.com"
 }
 ```
+
+```javascript
+var storeId = "AAABBB";             // Unique per remarkety account - get yours from the API setting page
+var eventType = "newsletter/unsubscribe"; // See "Event types"
+
+var data = JSON.stringify({
+    "email": "shopper@gmail.com"
+});
+
+// If run client-side, use our tracking script:
+var _rmData = _rmData || [];
+_rmData.push(['setStoreKey', storeId]); // Only needs to be run once on the page
+_rmData.push(['track', eventType, data]);
+// End client-side code
+```
+
 Inform Remarkety that a shopper wishes to unsubscribe. We will add this email to our suppression list, so that if the
 customer record is updated from different sources, we will **not** send marketing materials to this user, even if the
 customer record contains `accepts_marketing: true`. 

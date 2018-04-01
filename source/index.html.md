@@ -2,7 +2,9 @@
 title: Remarkety Event Reference
 
 language_tabs:
+  - json
   - php
+  - javascript
 
 toc_footers:
   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
@@ -85,8 +87,9 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $result = curl_exec($ch);
 ```
+
 ```javascript
-var storeId = "AAABBB";            // Unique per remarkety account
+var storeId = "AAABBB";             // Unique per remarkety account - get yours from the API setting page
 var eventType = "customers/update"; // See "Event types"
 
 var data = JSON.stringify({
@@ -96,6 +99,14 @@ var data = JSON.stringify({
   "accepts_marketing": true
 });
 
+// If run client-side, use our tracking script:
+var _rmData = _rmData || [];
+_rmData.push(['setStoreKey', storeId]); // Only needs to be run once on the page
+_rmData.push(['track', eventType, data]);
+// End client-side code
+
+// If run server-side, send the request directly to our webhook endpoint, and include your API token
+var token ="<Your API token>";  // Never expose this client-side!
 var xhr = new XMLHttpRequest();
 xhr.withCredentials = true;
 
@@ -105,14 +116,15 @@ xhr.addEventListener("readystatechange", function () {
   }
 });
 
-xhr.open("POST", "https://webhooks-staging.remarkety.com/webhooks/store/"+storeId);
+xhr.open("POST", "https://webhooks.remarkety.com/webhooks/store/"+storeId);
 xhr.setRequestHeader("Content-Type", "application/json");
 xhr.setRequestHeader("x-event-type", eventType);
+xhr.setRequestHeader("x-token", token);
 xhr.setRequestHeader("Cache-Control", "no-cache");
 
 xhr.send(data);
-
 ```
+
 The request must be a `POST` request to our endpoint.
 The request needs to include the following headers:
 
