@@ -1,6 +1,11 @@
 Remarkety TL;DR
 ---------------
 * Modify the  files inside the `source` directory, most likely the `index.html.md` file.
+* To run locally:
+    ```
+    bundle install
+    bundle exec middleman server
+    ```
 * Build and deploy by running the script:
    ```
    ./remarketyDeploy.sh

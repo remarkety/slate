@@ -11,6 +11,7 @@ toc_footers:
 
 includes:
   - built-in-events
+  - receiving-events
   - errors
 
 search: true
