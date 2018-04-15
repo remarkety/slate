@@ -81,7 +81,7 @@ Common fields:
    Field | Purpose
    ----- | -------
    timestamp | The timestamp of the event itself
-   recipient | The main recipient of the email (cc or bcc will not trigger events)
+   email | The recipient's email address (cc or bcc will not trigger events)
    campaign_name | The plain-text name of the campaign that triggered this email
    campaign_group | The plain-text name of the campaign group
    campaign_id | The internal Remarkety id of the campaign
@@ -95,7 +95,7 @@ Common fields:
 ```json
 {
   "timestamp": "2018-04-12T12:50:00+00:00",
-  "recipient": "john@doe.com",
+  "email": "john@doe.com",
   "campaign_name": "Abandoned cart #1",
   "campaign_id": 13118,
   "umk": "5acf31d0b22410.937575625acf31d0b"
@@ -109,7 +109,7 @@ Sent when an email is sent to the recipient.
 ```json
 {
   "timestamp": "2018-04-12T12:50:00+00:00",
-  "recipient": "john@doe.com",
+  "email": "john@doe.com",
   "campaign_name": "Abandoned cart #1",
   "campaign_id": 13118,
   "umk": "5acf31d0b22410.937575625acf31d0b",
@@ -126,7 +126,7 @@ Sent when a recipient clicks on a link inside an email
 ```json
 {
   "timestamp": "2018-04-12T12:50:00+00:00",
-  "recipient": "john@doe.com",
+  "email": "john@doe.com",
   "campaign_name": "Abandoned cart #1",
   "campaign_id": 13118,
   "umk": "5acf31d0b22410.937575625acf31d0b",
@@ -142,7 +142,7 @@ and sometimes opened by the receiving mail server and not the actual, human reci
 ```json
 {
   "timestamp": "2018-04-12T12:50:00+00:00",
-  "recipient": "john@doe.com",
+  "email": "john@doe.com",
   "campaign_name": "Abandoned cart #1",
   "campaign_id": 13118,
   "umk": "5acf31d0b22410.937575625acf31d0b"
@@ -156,7 +156,7 @@ reached the inbox.
 ```json
 {
   "timestamp": "2018-04-12T12:50:00+00:00",
-  "recipient": "john@doe.com",
+  "email": "john@doe.com",
   "campaign_name": "Abandoned cart #1",
   "campaign_id": 13118,
   "umk": "5acf31d0b22410.937575625acf31d0b",
@@ -172,7 +172,7 @@ or a hard bounce (address doesn't exist).
 ```json
 {
   "timestamp": "2018-04-12T12:50:00+00:00",
-  "recipient": "john@doe.com",
+  "email": "john@doe.com",
   "campaign_name": "Abandoned cart #1",
   "campaign_id": 13118,
   "umk": "5acf31d0b22410.937575625acf31d0b"
@@ -186,11 +186,35 @@ Sent when an email is marked as spam. Not all email servers send back a spam not
 ```json
 {
   "timestamp": "2018-04-12T12:50:00+00:00",
-  "recipient": "john@doe.com",
+  "email": "john@doe.com",
   "campaign_name": "Abandoned cart #1",
   "campaign_id": 13118,
   "umk": "5acf31d0b22410.937575625acf31d0b"
 }
 ```
 
-Sent when a customer unsubscribes from newsletters using the "Unsubscribe" link. 
+## newsletter/unsubscribed
+
+```json
+{
+  "timestamp": "2018-04-12T12:50:00+00:00",
+  "email": "john@doe.com"
+}
+```
+Sent when a customer's marketing preferences changes to "no", either by unsubscribing directly from a Remarkety email, 
+by an admin setting on the website, or by an external API call.
+
+## newsletter/subscribed
+
+```json
+{
+  "timestamp": "2018-04-12T12:50:00+00:00",
+  "optin_timestamp": "2018-04-12T12:55:00+00:00",
+  "email": "john@doe.com",
+  "signup_ip" : "1.2.3.4",
+  "optin_ip": "1.2.3.4"
+}
+```
+Sent when a customer's marketing preferences changes to "yes", either by signing up to a popup, by an API call, or by an
+admin in the app. `signup_ip` (optional) is the IP address used to initially sign up the user (might a server IP if this was an API call).
+`optin_ip` (optional) is the IP used to click the "confirm email" link in the double opt-in email, if sent.
