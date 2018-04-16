@@ -462,12 +462,12 @@ Be sure to send a `carts/delete` event with the cart ID once a cart turns into a
   "email": "shopper@gmail.com",
   "first_name": "Edgar",
   "last_name": "Poe",
-  "tags": ["politics", "sport"]
+  "tags": ["politics", "sport"],
+  "double_optin_required": false
 }
 ```
 Send this event to inform Remarkety of a customer's explicit wish to receive email newsletters.
-When Remarkety received this event, we **will not** send an opt-in confirmation. If you would like Remarkety to handle
-the double opt-in process, send a `customer/create` event instead, with `accepts_marketing: true`.
+When Remarkety received this event, we will send an **opt-in confirmation** based on the account settings and the `double_optin_required` field.
 
 ## newsletter/unsubscribe
 ```json
