@@ -193,17 +193,6 @@ Sent when an email is marked as spam. Not all email servers send back a spam not
 }
 ```
 
-## newsletter/unsubscribed
-
-```json
-{
-  "timestamp": "2018-04-12T12:50:00+00:00",
-  "email": "john@doe.com"
-}
-```
-Sent when a customer's marketing preferences changes to "no", either by unsubscribing directly from a Remarkety email, 
-by an admin setting on the website, or by an external API call.
-
 ## newsletter/subscribed
 
 ```json

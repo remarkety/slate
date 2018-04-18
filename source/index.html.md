@@ -2,7 +2,6 @@
 title: Remarkety Event Reference
 
 language_tabs:
-  - json
   - php
   - javascript
 
