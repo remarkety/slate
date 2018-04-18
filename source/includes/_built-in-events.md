@@ -32,12 +32,15 @@ The event type must be specified in the `x-event-type` header.
   "id": 1234,
   "info": {},
   "last_name": "Harel",
-  "updated_at": "2012-02-15T15:12:21-05:00",
+  "rewards": {
+    "points": 10
+  },
   "tags": [
     "tag1",
     "tag2"
   ],
   "title": "Mr.",
+  "updated_at": "2012-02-15T15:12:21-05:00",
   "verified_email": true
 }
 ```
@@ -466,6 +469,25 @@ Be sure to send a `carts/delete` event with the cart ID once a cart turns into a
   "double_optin_required": false
 }
 ```
+
+```javascript
+var storeId = "AAABBB";             // Unique per remarkety account - get yours from the API setting page
+var eventType = "newsletter/subscribe"; // See "Event types"
+
+var data = JSON.stringify({
+    "email": "shopper@gmail.com",
+    "first_name": "Edgar",
+    "last_name": "Poe",
+    "tags": ["politics", "sport"]
+});
+
+// If run client-side, use our tracking script:
+var _rmData = _rmData || [];
+_rmData.push(['setStoreKey', storeId]); // Only needs to be run once on the page
+_rmData.push(['track', eventType, data]);
+// End client-side code
+```
+
 Send this event to inform Remarkety of a customer's explicit wish to receive email newsletters.
 When Remarkety received this event, we will send an **opt-in confirmation** based on the account settings and the `double_optin_required` field.
 
@@ -475,6 +497,22 @@ When Remarkety received this event, we will send an **opt-in confirmation** base
 "email": "shopper@gmail.com"
 }
 ```
+
+```javascript
+var storeId = "AAABBB";             // Unique per remarkety account - get yours from the API setting page
+var eventType = "newsletter/unsubscribe"; // See "Event types"
+
+var data = JSON.stringify({
+    "email": "shopper@gmail.com"
+});
+
+// If run client-side, use our tracking script:
+var _rmData = _rmData || [];
+_rmData.push(['setStoreKey', storeId]); // Only needs to be run once on the page
+_rmData.push(['track', eventType, data]);
+// End client-side code
+```
+
 Inform Remarkety that a shopper wishes to unsubscribe. We will add this email to our suppression list, so that if the
 customer record is updated from different sources, we will **not** send marketing materials to this user, even if the
 customer record contains `accepts_marketing: true`. 
