@@ -14,10 +14,11 @@ The event type must be specified in the `x-event-type` header.
   "birthdate": "1997-02-26",
   "created_at": "2012-02-15T15:12:21-05:00",
   "default_address": {
-    "country": "United States",
     "country_code": "USA",
-    "province_code": "MO",
+    "region": "MO",
     "zip": "45415-3423",
+    "city": "Kansas City",
+    "street": "4647 Sunset Drive",
     "phone": "1-923-555-5555"
   },
   "email": "guy@remarkety.com",
