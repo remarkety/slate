@@ -40,7 +40,7 @@ You get the picture ;)
 Events are used within Remarkety to:
 
 * Trigger automations, either immediately or with a delay
-* Segment customers based on actions that they've done (or haven't done)
+* Update eCommerce data in Remarkety (Customers/Orders/Products/Carts).
 
 # Sending Events
 
@@ -50,7 +50,7 @@ All events must have a *type*. Remarkety has some built-in event types for e-com
  be able to perform advanced e-commerce related analytics on them. The built-in event types are specified in the 
  [Built-In Events](#built-in-events) section.
  
-## Making the Request
+## Server-Side API
 ```php
 <?php
 
@@ -99,12 +99,6 @@ var data = JSON.stringify({
   "accepts_marketing": true
 });
 
-// If run client-side, use our tracking script:
-var _rmData = _rmData || [];
-_rmData.push(['setStoreKey', storeId]); // Only needs to be run once on the page
-_rmData.push(['track', eventType, data]);
-// End client-side code
-
 // If run server-side, send the request directly to our webhook endpoint, and include your API token
 var token ="<Your API token>";  // Never expose this client-side!
 var xhr = new XMLHttpRequest();
@@ -141,3 +135,117 @@ The `body` of the request is simply the event JSON itself.
 Your API Key and Store Id can be found on your Integrations page. 
 <strong>If integrating client-side, don't expose this variable!</strong>
 </aside>
+
+## Client-Side API
+
+Remarkety's client-side library allows you to send events to Remarkety based on the visitor's actions on the store.
+
+You can also send eCommerce events using the client-side library based on the event payload described on the [E-Commerce event types](#e-commerce-event-types) docs.  
+
+### Adding the client-side snippet
+
+```php
+For client-side library examples switch to "javascript" examples
+```
+
+```javascript
+<script>
+var _rmData = _rmData || [];
+_rmData.push(['setStoreKey', '<STORE_ID>']);
+</script>
+<script>(function(d, t) {
+var g = d.createElement(t),
+s = d.getElementsByTagName(t)[0];
+g.src = 'https://s3.amazonaws.com/downloads.remarkety.com/webtracking/remarkety.js';
+s.parentNode.insertBefore(g, s);
+}(document, 'script'));
+</script>
+```
+
+All pages on the website should include this piece of code, just before the `</body>` tag.
+
+**Make sure to include the correct `<STORE_ID>` which you can find under _Settings > API Keys_ in your account.**
+
+<br><br><br><br><br><br><br>
+
+### Identifying Visitors
+
+```php
+For client-side library examples switch to "javascript" examples
+```
+
+```javascript
+var _rmData = _rmData || [];
+//Identify using email address
+_rmData.push(['setCustomerEmail', '<CUSTOMER_EMAIL>']);
+
+//Identify using customer id
+_rmData.push(['setCustomerId', '<CUSTOMER_ID>']);
+```
+
+The `setCustomerEmail` and `setCustomerId` method allows you identify the visitors based on their email address or your internal customer id.
+
+**Please Note:** 
+
+* Both methods currently require the email/customer ID to already be synced with Remarkety.
+* Without identifying the visitor, Remarkety *will not* receive the events.
+
+<br><br><br><br>
+
+### Sending events
+
+```php
+For client-side library examples switch to "javascript" examples
+```
+
+```javascript
+var _rmData = _rmData || [];
+//Sending an eCommerce event for updating the customer data
+var eventType = 'customers/update';
+var data = {
+             "email": "john.snow@thewall.org",
+             "first_name": "John",
+             "last_name": "Snow",
+             "accepts_marketing": true
+           };
+_rmData.push(['track', eventType, data]);
+
+//Sending a custom event based on visitor's action on the website
+var eventType = 'site-search';
+var data = {
+             "searchKeyword": "Red shorts",
+             "result_1_title": "Swim Short",
+             "result_1_image": "http://www.example.com/swim_shorts.png"
+           };
+_rmData.push(['track', eventType, data]);
+
+```
+
+When sending events you can choose to send eCommerce-related events or you can choose to send any custom event with custom properties.
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+### Product view events
+
+```php
+For client-side library examples switch to "javascript" examples
+```
+
+```javascript
+//Example code for productView event
+var _rmData = _rmData || [];
+_rmData.push(['productView', {
+   productId: '1112222',
+   productCategories: ['Men / Shorts', 'Men / Swimwear']
+}]);
+```
+
+To let Remarkety know that a visitor viewed a particular product, for using in the "Browse Abandonment" automation or product recommendations,
+you should send the `productView` event with the properties listed below.
+
+These properties should match the product id as received from the products feed.
+
+Property name | description | required
+------------- | ----------- | --------
+productId | The product id that the visitor viewed. | Yes
+productCategories | List of categories that this product attached to. | No
