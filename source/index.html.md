@@ -10,6 +10,7 @@ toc_footers:
 
 includes:
   - built-in-events
+  - custom-events
   - receiving-events
   - errors
 
