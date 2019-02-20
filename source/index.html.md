@@ -10,6 +10,7 @@ toc_footers:
 
 includes:
   - built-in-events
+  - custom-events
   - receiving-events
   - errors
 
@@ -46,9 +47,11 @@ Events are used within Remarkety to:
 
 ## Event Format
 All events must have a *type*. Remarkety has some built-in event types for e-commerce which you should use
- if you are sending e-commerce related events. In addition, you can send us any other type of event, but we will not
- be able to perform advanced e-commerce related analytics on them. The built-in event types are specified in the 
- [Built-In Events](#built-in-events) section.
+ if you are sending e-commerce related events. In addition, you can send us any other type of custom event, but we will not
+ be able to perform advanced e-commerce related analytics on them. 
+ 
+ The built-in event types are specified in the [E-Commerce Event Types](#e-commerce-event-types) section. For sending 
+ your own custom events, please see the [Custom Events](#custom-events) section. 
  
 ## Server-Side API
 ```php
