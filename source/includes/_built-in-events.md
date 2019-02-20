@@ -23,6 +23,7 @@ The event type must be specified in the `x-event-type` header.
   },
   "email": "guy@remarkety.com",
   "first_name": "Guy",
+  "last_name": "Harel",
   "gender": "M",
   "groups": [
     {
@@ -31,8 +32,6 @@ The event type must be specified in the `x-event-type` header.
     }
   ],
   "id": 1234,
-  "info": {},
-  "last_name": "Harel",
   "rewards": {
     "points": 10
   },
@@ -40,9 +39,7 @@ The event type must be specified in the `x-event-type` header.
     "tag1",
     "tag2"
   ],
-  "title": "Mr.",
-  "updated_at": "2012-02-15T15:12:21-05:00",
-  "verified_email": true
+  "updated_at": "2012-02-15T15:12:21-05:00"
 }
 ```
 
@@ -51,9 +48,18 @@ Used to inform Remarkety about customers being created or updated.
 ### Mandatory Fields
 Field | Data type | Description
 --------- | ------- | ---------
-`email` *or* <br>`id`| Valid email and/or user id (string)| Send at least one of these fields.<br>If the email of a user has changed, <br>the user_id will be used to locate the record.
-`accepts_marketing` | Boolean | If the user did not explicitly opt in or out on the website, send `null` here.
-`created_at` | 
+`email`| string| Email must be valid
+
+
+### Optional Fields
+Field | Data type | Description | Default Value
+--------- | ------- | --------- | -------------
+`accepts_marketing` | Boolean | If the user did not explicitly opt in or out on the website, send `null` here. Check your account settings to determine whether unknown value allows sending emails to the customers by default or not | null (Unknown)
+`created_at` | Date | The registration date of the customer to your website. | Current time
+`tags` | Array of String | | []
+`append_tags` | boolean | If the contact already exists in Remarkety, pass `true` to append new tags instead of replacing the tags | false
+ `gender` | M/F | |
+
 
 ## customers/update
 

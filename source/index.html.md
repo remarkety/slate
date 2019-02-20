@@ -177,17 +177,29 @@ For client-side library examples switch to "javascript" examples
 ```javascript
 var _rmData = _rmData || [];
 //Identify using email address
-_rmData.push(['setCustomerEmail', '<CUSTOMER_EMAIL>']);
+_rmData.push(['setCustomer', '<CUSTOMER_EMAIL>']);
 
 //Identify using customer id
 _rmData.push(['setCustomerId', '<CUSTOMER_ID>']);
+
+//Identify the customer and update the accepts_marketing and first_name properties
+_rmData.push(['setCustomer', {
+    "email": "john.snow@thewall.org",
+    "first_name": "John",
+    "accepts_marketing": true
+}]);
 ```
 
-The `setCustomerEmail` and `setCustomerId` method allows you identify the visitors based on their email address or your internal customer id.
+The `setCustomer` and `setCustomerId` method allows you identify the visitors based on their email address or your internal customer id.
+
+You can also use the `setCustomer` method with customer information, that will get updated in Remarkety contact's details.
+
+For the full list of customer properties please check the ["customers/create"](#customers-create) properties. 
 
 **Please Note:** 
 
-* Both methods currently require the email/customer ID to already be synced with Remarkety.
+* If the contact does not exists in Remarkety, the setCustomer method will create the contact.
+* The `setCustomerId` method requires that the contact will already be synced to Remarkety.
 * Without identifying the visitor, Remarkety *will not* receive the events.
 
 <br><br><br><br>
