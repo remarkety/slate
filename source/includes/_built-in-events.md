@@ -56,8 +56,8 @@ Field | Data type | Description | Default Value
 --------- | ------- | --------- | -------------
 `accepts_marketing` | Boolean | If the user did not explicitly opt in or out on the website, send `null` here. Check your account settings to determine whether unknown value allows sending emails to the customers by default or not | null (Unknown)
 `created_at` | Date | The registration date of the customer to your website. | Current time
-`tags` | Array of String | | []
-`append_tags` | boolean | If the contact already exists in Remarkety, pass `true` to append new tags instead of replacing the tags | false
+`tags` | Array of Strings | | []
+`append_tags` | boolean | If the contact already exists in Remarkety, pass `true` to append new tags instead of replacing existing tags | false
  `gender` | M/F | |
 
 
