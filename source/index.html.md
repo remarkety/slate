@@ -131,7 +131,7 @@ Content-Type | application/json; charset=UTF-8 |
 x-event-type | The event type | customers/update
 x-token | Your API Key (not necessary on client-side events) | abc123
 x-domain | Your domain (optional) | my.store.com
-x-platform | Your e-commerce platform (optional) | MAGENTO1
+x-platform | Your e-commerce platform (optional). For custom events use "custom". | MAGENTO1
 x-event-time | UNIX timestamp.<br />When this event occurred. By default, Remarkety assumes events happen when a request is made. Add this header if you'd like to track an event that happened in past. | 1573649331
 
 The `body` of the request is simply the event JSON itself.
