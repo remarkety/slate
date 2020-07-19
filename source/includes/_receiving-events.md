@@ -207,3 +207,60 @@ Sent when an email is marked as spam. Not all email servers send back a spam not
 Sent when a customer's marketing preferences changes to "yes", either by signing up to a popup, by an API call, or by an
 admin in the app. `signup_ip` (optional) is the IP address used to initially sign up the user (might a server IP if this was an API call).
 `optin_ip` (optional) is the IP used to click the "confirm email" link in the double opt-in email, if sent.
+
+## sms/sent
+
+```json
+{
+  "timestamp": "2020-07-19T10:12:15.296Z",
+  "email": "john@doe.com",
+  "campaign_name": "Welcome Campaign",
+  "campaign_id": "111112",
+  "umk": "5acf31d0b22410.937575625acf31d0b",
+  "characters_count": 92,
+  "body": "Sample message content.",
+  "to": "+15417540000",
+  "from": "+15417541111",
+  "is_test": false,
+  "recipient_country_code": "US"
+}
+```
+Sent when an SMS is sent to the recipient.
+campaign_id, campaign_name and umk are all optional fields, if the massage was sent by a system message (double opt-in confirmation, unsubscribe confirmation, etc.) these fields will not get included in the JSON.  
+
+## sms/clicked
+```json
+{
+  "timestamp": "2020-07-19T10:12:15.296Z",
+  "to": "+15417540000",
+  "from": "+15417541111",
+  "email": "john@doe.com",
+  "campaign_name": "Welcome Campaign",
+  "campaign_id": "111112",
+  "umk": "5acf31d0b22410.937575625acf31d0b",
+  "is_test": false,
+  "ip": "1.1.1.1",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36",
+  "url": "https://www.remarkey.com"
+}
+```
+
+Sent when an SMS link with Remarkety's short URL was clicked.
+campaign_id, campaign_name and umk are all optional fields, if the massage was sent by a system message (double opt-in confirmation, unsubscribe confirmation, etc.) these fields will not get included in the JSON.
+
+## sms/unsubscribed
+
+```json
+{
+    "timestamp": "2018-04-12T12:50:00+00:00",
+    "email": "john@doe.com",
+    "campaign_name": "Abandoned cart #1",
+    "campaign_id": 11111,
+    "umk": "5acf31d0b22410.937575625acf31d0b",
+    "phone_number": "+15417543010",
+    "reason": "Unsubscribed via link"
+}
+```
+
+Sent whenever an SMS contact is unsubscribed, by replying to the account's incoming number or by clicking an unsubscribe link.
+campaign_id, campaign_name and umk are all optional fields, if the contact unsubscribed by replying to your incoming number, these fields will not get included in the JSON.
