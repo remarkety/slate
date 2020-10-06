@@ -264,3 +264,46 @@ campaign_id, campaign_name and umk are all optional fields, if the massage was s
 
 Sent whenever an SMS contact is unsubscribed, by replying to the account's incoming number or by clicking an unsubscribe link.
 campaign_id, campaign_name and umk are all optional fields, if the contact unsubscribed by replying to your incoming number, these fields will not get included in the JSON.
+
+## email-suppression/added
+
+```json
+{
+  "timestamp": "2018-04-12T12:50:00+00:00",
+  "email": "john@doe.com",
+  "client_ip": "1.1.1.1",
+  "type": "unsubscribed",
+  "reason": "Recipient unsubscribed"
+}
+```
+
+Sent when an email is added to the suppression list and will not receive any marketing emails from now on.
+
+The email address can be added multiple times to the suppression list with different suppression types.
+ 
+#### Suppression types
+* unsubscribed
+* manually_suppressed
+* hard_bounce
+* soft_bounce
+* spam_complaint
+* pending_opt_in
+* domain_suppressed
+* deleted
+* suspected_as_spam
+
+## email-suppression/removed
+
+```json
+{
+  "timestamp": "2018-04-12T12:50:00+00:00",
+  "email": "john@doe.com",
+  "client_ip": "1.1.1.1",
+  "type": "unsubscribed",
+  "reason": "Customer re-subscribed"
+}
+```
+
+Sent when an email is removed from the suppression list.
+
+The email address can be added multiple times to the suppression list with different suppression types, when a specific type is removed the email might still be in the list with a different suppression type.
