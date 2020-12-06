@@ -160,7 +160,8 @@ reached the inbox.
   "campaign_name": "Abandoned cart #1",
   "campaign_id": 13118,
   "umk": "5acf31d0b22410.937575625acf31d0b",
-  "reason": "554 5.4.14 Hop count exceeded - possible mail loop ATTR34 [SN1NAM04FT063.eop-NAM04.prod.protection.outlook.com]"
+  "reason": "554 5.4.14 Hop count exceeded - possible mail loop ATTR34 [SN1NAM04FT063.eop-NAM04.prod.protection.outlook.com]",
+  "soft_bounce": true
 }
 ```
 
