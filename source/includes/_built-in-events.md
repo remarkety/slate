@@ -457,14 +457,7 @@ anonymous (most are...), the `customer` and `emails` fields can be sent as `null
 ## carts/update
  
 Same format as [carts/create](#carts-create). Make sure to keep the same `id` so that carts don't get duplicated.
- 
-## carts/delete
-```json
-{
-   "id": 1234
-}
-```
-Be sure to send a `carts/delete` event with the cart ID once a cart turns into an order.
+
  
 ## newsletter/subscribe
 ```json
@@ -472,6 +465,8 @@ Be sure to send a `carts/delete` event with the cart ID once a cart turns into a
   "email": "shopper@gmail.com",
   "first_name": "Edgar",
   "last_name": "Poe",
+  "sms_phone_number_e164": "+12025550137",
+  "customerId": "111112",
   "tags": ["politics", "sport"],
   "double_optin_required": false
 }
@@ -485,6 +480,8 @@ var data = JSON.stringify({
     "email": "shopper@gmail.com",
     "first_name": "Edgar",
     "last_name": "Poe",
+    "sms_phone_number_e164": "+12025550137",
+    "customerId": "111112",
     "tags": ["politics", "sport"]
 });
 
@@ -495,8 +492,10 @@ _rmData.push(['track', eventType, data]);
 // End client-side code
 ```
 
-Send this event to inform Remarkety of a customer's explicit wish to receive email newsletters.
+Send this event to inform Remarkety of a customer's explicit wish to receive email newsletters or SMS blasts.
 When Remarkety received this event, we will send an **opt-in confirmation** based on the account settings and the `double_optin_required` field.
+
+Make sure you send the `sms_phone_number_e164` field as an E.164 formatted phone number.
 
 ## newsletter/unsubscribe
 ```json
