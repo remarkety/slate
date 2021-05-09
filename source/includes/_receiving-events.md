@@ -249,6 +249,17 @@ campaign_id, campaign_name and umk are all optional fields, if the massage was s
 Sent when an SMS link with Remarkety's short URL was clicked.
 campaign_id, campaign_name and umk are all optional fields, if the massage was sent by a system message (double opt-in confirmation, unsubscribe confirmation, etc.) these fields will not get included in the JSON.
 
+## sms/replied
+```json
+{
+  "to": "+15417540000",
+  "from": "+15417541111",
+  "body": "Message content body"
+}
+```
+
+Triggered when someone sends a message to one of your phone numbers that purchased via Remarkety.
+
 ## sms/unsubscribed
 
 ```json
