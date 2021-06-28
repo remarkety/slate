@@ -129,7 +129,6 @@ Header&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Value | Example
 --------- | ------- | ---------
 Content-Type | application/json; charset=UTF-8 |
 x-event-type | The event type | customers/update
-x-token | Your store API Key (not necessary on client-side events) | abc123
 x-api-key | Your Remarkety API Key (not necessary on client-side events) | abc123
 x-domain | Your domain (optional) | my.store.com
 x-platform | Your e-commerce platform (optional). For custom events use "custom". | MAGENTO1
