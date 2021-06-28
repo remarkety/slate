@@ -129,7 +129,8 @@ Header&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Value | Example
 --------- | ------- | ---------
 Content-Type | application/json; charset=UTF-8 |
 x-event-type | The event type | customers/update
-x-token | Your API Key (not necessary on client-side events) | abc123
+x-token | Your store API Key (not necessary on client-side events) | abc123
+x-api-key | Your Remarkety API Key (not necessary on client-side events) | abc123
 x-domain | Your domain (optional) | my.store.com
 x-platform | Your e-commerce platform (optional). For custom events use "custom". | MAGENTO1
 x-event-time | UNIX timestamp.<br />When this event occurred. By default, Remarkety assumes events happen when a request is made. Add this header if you'd like to track an event that happened in past. | 1573649331
@@ -138,6 +139,9 @@ The `body` of the request is simply the event JSON itself.
 <aside class="notice">
 Your API Key and Store Id can be found on your Integrations page. 
 <strong>If integrating client-side, don't expose this variable!</strong>
+</aside>
+<aside class="notice">
+For authentication, you must use one of the two methods: your store API Key in the `x-token` header OR your Remarkety API Key in the `x-api-key`.
 </aside>
 
 ## Client-Side API
