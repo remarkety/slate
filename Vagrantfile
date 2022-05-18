@@ -1,21 +1,21 @@
 Vagrant.configure(2) do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/focal64"
   config.vm.network :forwarded_port, guest: 4567, host: 4567
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"
+  end
 
   config.vm.provision "bootstrap",
     type: "shell",
     inline: <<-SHELL
+      # add nodejs v12 repository
+      curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+
       sudo apt-get update
+      sudo apt-get install -yq ruby ruby-dev
       sudo apt-get install -yq pkg-config build-essential nodejs git libxml2-dev libxslt-dev
-sudo apt-get install libgdbm-dev libncurses5-dev automake libtool bison libffi-dev
-gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-curl -sSL https://get.rvm.io | bash -s stable
-source ~/.rvm/scripts/rvm
-rvm install 2.4.0
-rvm use 2.4.0 --default
-ruby -v
       sudo apt-get autoremove -yq
-      gem2.0 install --no-ri --no-rdoc bundler
+      gem install --no-ri --no-rdoc bundler
     SHELL
 
   # add the local user git config to the vm
@@ -28,6 +28,7 @@ ruby -v
       echo "=============================================="
       echo "Installing app dependencies"
       cd /vagrant
+      sudo gem install bundler -v "$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1)"
       bundle config build.nokogiri --use-system-libraries
       bundle install
     SHELL
@@ -41,6 +42,6 @@ ruby -v
       echo "Starting up middleman at http://localhost:4567"
       echo "If it does not come up, check the ~/middleman.log file for any error messages"
       cd /vagrant
-      bundle exec middleman server --force-polling --latency=1 &> ~/middleman.log &
+      bundle exec middleman server --watcher-force-polling --watcher-latency=1 &> ~/middleman.log &
     SHELL
 end
