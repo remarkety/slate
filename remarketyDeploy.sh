@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "Building..."
-bundle exec middleman build --clean
+docker run --rm --name slate -v $(pwd)/build:/srv/slate/build -v $(pwd)/source:/srv/slate/source slatedocs/slate build
 if [ $? -eq 0 ]; then
     echo "Synching to S3 bucket"
     cd build

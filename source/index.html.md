@@ -15,6 +15,12 @@ includes:
   - errors
 
 search: true
+
+code_clipboard: true
+
+meta:
+  - name: description
+    content: Remarkety Event Reference
 ---
 
 # Introduction
