@@ -79,7 +79,7 @@ GEM
       rouge (~> 2.0)
     mini_portile2 (2.8.0)
     minitest (5.16.2)
-    nokogiri (1.13.6)
+    nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     padrino-helpers (0.13.3.4)
@@ -90,7 +90,7 @@ GEM
       activesupport (>= 3.1)
     parallel (1.22.1)
     public_suffix (4.0.7)
-    racc (1.6.0)
+    racc (1.6.1)
     rack (2.2.4)
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
@@ -117,8 +117,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  middleman-autoprefixer (~> 3.0.0)
   middleman (~> 4.3.11)
+  middleman-autoprefixer (~> 3.0.0)
   middleman-sprockets (~> 4.1.0)
   middleman-syntax (~> 3.0.0)
   nokogiri (~> 1.13.6)
