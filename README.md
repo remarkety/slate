@@ -1,35 +1,48 @@
 # Remarkety Event Reference
+
 This project is based on [slate](https://github.com/slatedocs/slate).
 
 ## Editing
+
 * Modify the  files inside the `source` directory, most likely the `index.html.md` file.
 
 ## Running Locally
+
 ### Prequisite: npm serve
+
 Install `serve` to easily serve files from a static directory:
 ```npm install serve -g```
+
 ### Build the project using Docker
+
 ```docker run --rm --name slate -v $(pwd)/build:/srv/slate/build -v $(pwd)/source:/srv/slate/source slatedocs/slate build```
+
 ### Serve the files
+
 ```shell
 cd build
 serve -p 8000
 ```
 
 ## Deploying
+
 ### Prequisite: aws CLI
+
 Make sure you have the AWS CLI installed (`aws --version`), and that your current profile has permissions
 to copy to S3.
 
 ### Build and deploy
+
 ```shell
-docker run --rm --name slate -v $(pwd)/build:/srv/slate/build -v $(pwd)/source:/srv/slate/source slatedocs/slate build```
+docker run --rm --name slate -v $(pwd)/build:/srv/slate/build -v $(pwd)/source:/srv/slate/source slatedocs/slate build
 cd build
 aws s3 sync . s3://docs-api-v1.remarkety.com/
 ```
+
 The docs are publicly available at: http://docs-api-v1.remarkety.com.s3-website-us-east-1.amazonaws.com/#carts-create
 
 ## Original Slate Readme 
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/slatedocs/img/main/logo-slate.png" alt="Slate: API Documentation Generator" width="226">
   <br>

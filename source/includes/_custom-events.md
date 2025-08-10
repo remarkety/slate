@@ -1,11 +1,30 @@
 # Custom Events
 
 ```php
-For client-side library examples switch to "javascript" examples
+$headers = [
+    "x-domain: $domain",
+    "x-token: $apiKey",
+    "x-platform: CUSTOM",
+    "x-event-type: custom-event",
+    'Content-Type: application/json; charset=UTF-8'
+];
+
+$customData = [
+   // custom fields
+];
+
+$dataString = json_encode($customerData);
+
+$ch = curl_init("https://webhooks.remarkety.com/webhooks/?storeId=$storeId");
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+$result = curl_exec($ch);
 ```
 
 ```javascript
-
 // Send a site-search event
 
 var _rmData = _rmData || [];
@@ -44,6 +63,7 @@ var data = {
            };
 _rmData.push(['track', eventType, data]); 
 ```
+
 In addition to the built-in eCommerce events, you can use our client-side tracking script to send custom events as well.
 These events, with their associated properties, can be used to trigger automations inside Remarkety.
 
