@@ -4,7 +4,7 @@
 $headers = [
     "x-domain: $domain",
     "x-token: $apiKey",
-    "x-platform: CUSTOM",
+    "x-platform: custom",
     "x-event-type: custom-event",
     'Content-Type: application/json; charset=UTF-8'
 ];
