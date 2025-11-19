@@ -11,6 +11,7 @@ The event type must be specified in the `x-event-type` header.
 ```json
 {
   "accepts_marketing": true,
+  "accepts_sms_marketing": true,
   "birthdate": "1997-02-26",
   "created_at": "2012-02-15T15:12:21-05:00",
   "default_address": {
@@ -35,6 +36,7 @@ The event type must be specified in the `x-event-type` header.
   "rewards": {
     "points": 10
   },
+  "sms_phone_number": "+19235555555",
   "tags": [
     "tag1",
     "tag2"
@@ -59,6 +61,8 @@ Field | Data type | Description | Default Value
 `tags` | Array of Strings | | []
 `append_tags` | boolean | If the contact already exists in Remarkety, pass `true` to append new tags instead of replacing existing tags | false
  `gender` | M/F | |
+ `sms_phone_number` | string | Phone number used for SMS |
+ `accepts_sms_marketing`| Boolean | If the user did not explicitly opt in or out on the website, send `null` here. Check your sms settings to determine whether unknown value allows sending sms from the email consent or not | null (Unknown)
 
 
 ## customers/update
