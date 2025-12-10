@@ -3,7 +3,7 @@
 ```php
 $headers = [
     "x-domain: $domain",
-    "x-token: $apiKey",
+    "x-api-key: $apiKey",
     "x-platform: custom",
     "x-event-type: custom-event",
     'Content-Type: application/json; charset=UTF-8'
