@@ -72,7 +72,7 @@ $platform = "MAGENTO";          // Per-platform setting
 $headers = [
     "x-domain: $domain",
     "x-platform: $platform",
-    "x-token: $apiKey",
+    "x-api-key: $apiKey",
     "x-event-type: $eventType",
     'Content-Type: application/json; charset=UTF-8'
 ];
@@ -122,7 +122,7 @@ xhr.addEventListener("readystatechange", function () {
 xhr.open("POST", "https://webhooks.remarkety.com/webhooks/store/"+storeId);
 xhr.setRequestHeader("Content-Type", "application/json");
 xhr.setRequestHeader("x-event-type", eventType);
-xhr.setRequestHeader("x-token", token);
+xhr.setRequestHeader("x-api-key", token);
 xhr.setRequestHeader("Cache-Control", "no-cache");
 
 xhr.send(data);
@@ -146,7 +146,7 @@ Your API Key and Store Id can be found on your Integrations page.
 <strong>If integrating client-side, don't expose this variable!</strong>
 </aside>
 <aside class="notice">
-For authentication, you must use one of the two methods: your store API Key in the `x-token` header OR your Remarkety API Key in the `x-api-key`.
+For authentication, you must use one of the two methods: your store API Key in the `x-api-key` header OR your Remarkety API Key in the `x-api-key`.
 </aside>
 
 ## Client-Side API
